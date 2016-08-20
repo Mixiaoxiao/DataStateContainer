@@ -16,12 +16,12 @@ Sample APK
 Features 特性
 -----
 
-* 现支持ListView与RecyclerView(LinearLayoutManager.VERTICAL和GridLayoutManager)
+* 完美支持RecyclerView(竖向的Linear/GridLayoutManager/StaggeredGridLayoutManager)与ListView
 * 零侵入Adapter
 * 下拉刷新：回调下拉百分比，可显示刷新成功/失败的状态
 * 上拉加载：支持autoLoadWhenScrollToLastItem与hasMoreDataToLoad，支持“点击重新加载”
 * Empty状态：可设置是否点击来retry
-* 很强的扩展性：只需YourView implements IRefreshView、ILoadView、IEmptyView，参见SimpleXxxView
+* 易扩展：只需YourView implements IRefreshView、ILoadView、IEmptyView，参见SimpleXxxView
 
 
 Usage 使用方法
@@ -33,7 +33,7 @@ Usage 使用方法
 简单说几句实现原理
 -----
 
-* 下拉刷新和v4包的SwipeRefreshLayout类似，当列表View不可下滑时劫持触摸事件，RefreshView的位置由setScroll(0, dy)控制，这样DataStateContainer内部的所有子View均可跟手移动(包括EmptyView)
+* 下拉刷新和v4包的SwipeRefreshLayout类似，当列表不可下滑时劫持触摸事件，RefreshView的位置由setScroll(0, dy)控制，这样DataStateContainer内部的所有子View均可跟手移动(包括EmptyView)
 * 上拉加载修改了列表View的paddingBottom【特别注意】，将paddingBottom设置为LoadView的高度，监听滑动来将LoadView“附着于”列表的lastChild末端
 
 需要Header|Footer？
@@ -41,12 +41,6 @@ Usage 使用方法
 
 * ListView本身支持
 * RecyclerView写个多type的Adapter即可（或自行封装一个简单的带Header的WrapperAdapter）
-
-
-TODO 待做
---------
-
-* 还需支持RecyclerView的StaggeredGridLayoutManager，ScrollableViewWrapper中处理即可
 
 Developed By
 ------------

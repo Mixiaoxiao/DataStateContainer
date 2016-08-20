@@ -10,8 +10,11 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +45,8 @@ public class SampleActivity extends Activity {
 	Button mEmpty, mEmptyRetry;
 	RadioGroup mRadioGroup;
 	
+	private LayoutManager mLLayoutManager, mGLayoutManager, mSLayoutManager;
+	
     @Override 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +57,10 @@ public class SampleActivity extends Activity {
         mEmpty = (Button) findViewById(R.id.sample_empty);
         mEmptyRetry = (Button) findViewById(R.id.sample_empty_retry);
         mListView = (ListView) findViewById(R.id.sample_listview);
-        for(int i = 0 ; i < 8 ; i++){
-        	mListViewData.add("ListView Item " + i);
+        for(int i = 0 ; i < 17 ; i++){
+        	if(i < 8){
+        		mListViewData.add("ListView Item " + i);
+        	}
         	mRecyclerViewData.add("RecyclerView Item " + i);
         }
         mListViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListViewData);
@@ -105,15 +112,12 @@ public class SampleActivity extends Activity {
 			}
 		});
         
-        mListViewContainer.post(new Runnable() {
-			@Override
-			public void run() {
-				mListViewContainer.requestRefresh();
-			}
-		});
         
+        mLLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mGLayoutManager = new GridLayoutManager(this, 2);
+        mSLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 		mRecyclerView = (RecyclerView) findViewById(R.id.sample_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+		mRecyclerView.setLayoutManager(mLLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
         mRecyclerViewAdapter= new SimpleRecyclerViewAdapter(mRecyclerViewData);
@@ -130,6 +134,11 @@ public class SampleActivity extends Activity {
 						if(dataSuccess()){
 							mRecyclerViewData.add(0 , "Recycler Item Refresh " + mRecyclerViewData.size());
 							mRecyclerViewData.add(0 , "Recycler Item Refresh " + mRecyclerViewData.size());
+							if(mRecyclerView.getLayoutManager() == mGLayoutManager){
+								mRecyclerViewData.add(0, "Recycler Item Refresh " + mRecyclerViewData.size());
+							}else if(mRecyclerView.getLayoutManager() == mSLayoutManager){
+								mRecyclerViewData.add(0 , "Recycler \nItem \nLoad " + mRecyclerViewData.size()+ "\nStaggeredGrid");
+							}
 							mRecyclerViewAdapter.notifyDataSetChanged();
 						}
 						mRecyclerViewContainer.onRefreshEnd(dataSuccess());
@@ -147,6 +156,11 @@ public class SampleActivity extends Activity {
 						if(dataSuccess()){
 							mRecyclerViewData.add("Recycler Item Load " + mRecyclerViewData.size());
 							mRecyclerViewData.add("Recycler Item Load " + mRecyclerViewData.size());
+							if(mRecyclerView.getLayoutManager() == mGLayoutManager){
+								mRecyclerViewData.add("Recycler Item Load " + mRecyclerViewData.size());
+							}else if(mRecyclerView.getLayoutManager() == mSLayoutManager){
+								mRecyclerViewData.add("Recycler \nItem \nLoad " + mRecyclerViewData.size()+ "\nStaggeredGrid");
+							}
 							mRecyclerViewAdapter.notifyDataSetChanged();
 						}
 						mRecyclerViewContainer.onLoadEnd(dataSuccess());
@@ -190,6 +204,26 @@ public class SampleActivity extends Activity {
 				}
 			}
 		});
+        findViewById(R.id.sample_changelayoutmanager).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final LayoutManager currLayoutManager = mRecyclerView.getLayoutManager();
+				if(currLayoutManager == mLLayoutManager){
+					mRecyclerView.setLayoutManager(mGLayoutManager);
+				}else if(currLayoutManager == mGLayoutManager){
+					mRecyclerView.setLayoutManager(mSLayoutManager);
+				}else if(currLayoutManager == mSLayoutManager){
+					mRecyclerView.setLayoutManager(mLLayoutManager);
+				}
+				toast("change to " + mRecyclerView.getLayoutManager().getClass().getSimpleName());
+			}
+		});
+        mRecyclerViewContainer.post(new Runnable() {
+			@Override
+			public void run() {
+				mRecyclerViewContainer.requestRefresh();
+			}
+		});
     }
     
     private void setEmpty(boolean retry){
@@ -211,9 +245,9 @@ public class SampleActivity extends Activity {
     private boolean dataSuccess(){
     	return mCheckBoxDataSuccess.isChecked();
     }
-//    private void toast(String text){
-//    	Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-//    }
+    private void toast(String text){
+    	Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
     
     private static  class SimpleViewHolder extends ViewHolder{
     	TextView textView;
@@ -251,7 +285,7 @@ public class SampleActivity extends Activity {
 
 		@Override
 		public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-			TextView textView = (TextView) LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+			TextView textView = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.sample_recyclerview_item, parent, false);
 			return new SimpleViewHolder(textView);
 		}
     }
@@ -294,12 +328,14 @@ public class SampleActivity extends Activity {
         }
 
         public void drawVertical(Canvas c, RecyclerView parent) {
-            final int left = parent.getPaddingLeft();
-            final int right = parent.getWidth() - parent.getPaddingRight();
+//            final int left = parent.getPaddingLeft();
+//            final int right = parent.getWidth() - parent.getPaddingRight();
 
             final int childCount = parent.getChildCount();
             for (int i = 0; i < childCount; i++) {
                 final View child = parent.getChildAt(i);
+                final int left = child.getLeft();
+                final int right = child.getRight();
                 final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                         .getLayoutParams();
                 final int top = child.getBottom() + params.bottomMargin +
