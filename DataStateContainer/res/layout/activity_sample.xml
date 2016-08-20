@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mixiaoxiao.datastatecontainer.SampleActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:id="@+id/sample_checkbox_autoLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="autoLoad" />
+
+        <CheckBox
+            android:id="@+id/sample_checkbox_hasMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="hasMore" />
+
+        <CheckBox
+            android:id="@+id/sample_checkbox_dataSuccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="dataSuccess" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/sample_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Empty"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/sample_empty_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Empty(retry)"
+            android:textSize="12dp" />
+
+        <RadioGroup
+            android:id="@+id/sample_radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/sample_radio_listview"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/sample_radio_listview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="ListView"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/sample_radio_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RecyclerView"
+                android:textSize="12dp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <com.mixiaoxiao.datastatecontainer.DataStateContainer
+            android:id="@+id/listview_dataStateContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ListView
+                android:id="@+id/sample_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </ListView>
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleLoadView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#66009688"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleRefreshView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#66009688"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleEmptyView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="SimpleEmptyView"
+                android:textColor="#ff666666"
+                android:textSize="20dp" />
+        </com.mixiaoxiao.datastatecontainer.DataStateContainer>
+
+        <com.mixiaoxiao.datastatecontainer.DataStateContainer
+            android:id="@+id/recyclerview_dataStateContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/sample_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleLoadView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#66009688"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleRefreshView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#66009688"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+            <com.mixiaoxiao.datastatecontainer.simple.SimpleEmptyView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="SimpleEmptyView"
+                android:textColor="#ff666666"
+                android:textSize="20dp" />
+        </com.mixiaoxiao.datastatecontainer.DataStateContainer>
+    </FrameLayout>
+
+</LinearLayout>
