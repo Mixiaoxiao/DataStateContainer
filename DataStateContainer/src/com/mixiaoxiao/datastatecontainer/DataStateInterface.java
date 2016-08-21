@@ -78,5 +78,7 @@ public class DataStateInterface {
 		public View getRetryView();
 
 		public void onEmpty(boolean empty, boolean retry);
+		
+		public void onRefreshIng();
 	}
 }

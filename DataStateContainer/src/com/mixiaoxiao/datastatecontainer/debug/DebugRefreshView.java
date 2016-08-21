@@ -1,4 +1,4 @@
-package com.mixiaoxiao.datastatecontainer.simple;
+package com.mixiaoxiao.datastatecontainer.debug;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,22 +7,22 @@ import android.widget.TextView;
 
 import com.mixiaoxiao.datastatecontainer.DataStateInterface.IRefreshView;
 
-public class SimpleRefreshView extends TextView implements IRefreshView{
+public class DebugRefreshView extends TextView implements IRefreshView{
 
 	
 	private final int mExactHeight;
 	
-	public SimpleRefreshView(Context context) {
+	public DebugRefreshView(Context context) {
 		this(context, null, 0);
 	}
 	
-	public SimpleRefreshView(Context context, AttributeSet attrs) {
+	public DebugRefreshView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public SimpleRefreshView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public DebugRefreshView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		mExactHeight = (int)(context.getResources().getDisplayMetrics().density * 48 + 0.5f ); ;
+		mExactHeight = (int)(context.getResources().getDisplayMetrics().density * 48 + 0.5f );
 	}
 
 	@Override

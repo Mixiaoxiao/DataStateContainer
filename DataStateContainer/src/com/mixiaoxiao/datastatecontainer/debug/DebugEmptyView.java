@@ -1,4 +1,4 @@
-package com.mixiaoxiao.datastatecontainer.simple;
+package com.mixiaoxiao.datastatecontainer.debug;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,19 +10,19 @@ import android.widget.TextView;
 import com.mixiaoxiao.datastatecontainer.DataStateInterface.IEmptyView;
 import com.mixiaoxiao.datastatecontainer.R;
 
-public class SimpleEmptyView extends FrameLayout implements IEmptyView{
+public class DebugEmptyView extends FrameLayout implements IEmptyView{
 	
 	private final TextView mTextView;
 
-	public SimpleEmptyView(Context context) {
+	public DebugEmptyView(Context context) {
 		this(context, null, 0);
 	}
 
-	public SimpleEmptyView(Context context, AttributeSet attrs) {
+	public DebugEmptyView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public SimpleEmptyView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public DebugEmptyView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		mTextView = new TextView(context, attrs);
 		final int padding = (int) (context.getResources().getDisplayMetrics().density * 16f);
@@ -47,6 +47,10 @@ public class SimpleEmptyView extends FrameLayout implements IEmptyView{
 			mTextView.setText("There is empty really");
 			mTextView.setClickable(false);
 		}
+	}
+	@Override
+	public void onRefreshIng() {
+		mTextView.setText("Refreshing...");
 	}
 
 	@Override

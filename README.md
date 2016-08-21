@@ -1,6 +1,7 @@
 DataStateContainer
 ===============
 
+Android RecyclerView/ListView pull-to-refresh/loadmore/empty/retry.
 DataStateContainer是一个专为处理数据刷新/加载逻辑业务(如微博信息流)而生的ViewGroup。
 
 Screenshots 

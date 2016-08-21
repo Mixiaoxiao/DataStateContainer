@@ -51,12 +51,12 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="RecyclerView" />
-            
+
             <RadioButton
                 android:id="@+id/sample_radio_listview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ListView" />
+                android:text="ListView(debug)" />
         </RadioGroup>
     </LinearLayout>
 
@@ -69,8 +69,8 @@
             android:id="@+id/sample_empty"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Empty" 
-            android:textSize="14dp"/>
+            android:text="Empty"
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/sample_empty_retry"
@@ -78,7 +78,6 @@
             android:layout_height="match_parent"
             android:text="Empty(retry)"
             android:textSize="14dp" />
-        
 
         <Button
             android:id="@+id/sample_changelayoutmanager"
@@ -105,21 +104,21 @@
                 android:layout_height="match_parent" >
             </ListView>
 
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleLoadView
+            <com.mixiaoxiao.datastatecontainer.debug.DebugLoadView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#66009688"
                 android:gravity="center"
                 android:textSize="16dp" />
 
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleRefreshView
+            <com.mixiaoxiao.datastatecontainer.debug.DebugRefreshView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#66009688"
                 android:gravity="center"
                 android:textSize="16dp" />
 
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleEmptyView
+            <com.mixiaoxiao.datastatecontainer.debug.DebugEmptyView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -140,26 +139,25 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical" />
 
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleLoadView
+            <com.mixiaoxiao.datastatecontainer.design.DesignLoadView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#66009688"
+                android:gravity="center"
+                android:textColor="#ff666666"
+                android:textSize="14dp" />
+
+            <com.mixiaoxiao.datastatecontainer.design.DesignRefreshView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:gravity="center"
                 android:textSize="16dp" />
 
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleRefreshView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#66009688"
-                android:gravity="center"
-                android:textSize="16dp" />
-
-            <com.mixiaoxiao.datastatecontainer.simple.SimpleEmptyView
+            <com.mixiaoxiao.datastatecontainer.design.DesignEmptyView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="SimpleEmptyView"
-                android:textColor="#ff666666"
+                android:textColor="#ff333333"
                 android:textSize="20dp" />
         </com.mixiaoxiao.datastatecontainer.DataStateContainer>
     </FrameLayout>

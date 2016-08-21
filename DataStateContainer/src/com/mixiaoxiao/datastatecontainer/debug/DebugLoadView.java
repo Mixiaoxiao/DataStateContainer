@@ -1,4 +1,4 @@
-package com.mixiaoxiao.datastatecontainer.simple;
+package com.mixiaoxiao.datastatecontainer.debug;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.mixiaoxiao.datastatecontainer.DataStateInterface.ILoadView;
 
-public class SimpleLoadView extends TextView implements ILoadView{
+public class DebugLoadView extends TextView implements ILoadView{
 	
 	private void log(String msg){
 		Log.d("SimpleLoadView", msg);
@@ -16,15 +16,15 @@ public class SimpleLoadView extends TextView implements ILoadView{
 	
 	private final int mExactHeight;// = (int)(Resources.getSystem().getDisplayMetrics().density * 48 + 0.5f ); 
 
-	public SimpleLoadView(Context context) {
+	public DebugLoadView(Context context) {
 		this(context, null, 0);
 	}
 
-	public SimpleLoadView(Context context, AttributeSet attrs) {
+	public DebugLoadView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public SimpleLoadView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public DebugLoadView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		mExactHeight = (int)(context.getResources().getDisplayMetrics().density * 48 + 0.5f ); ;
 	}

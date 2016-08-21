@@ -224,24 +224,6 @@ public class ScrollableViewWrapper implements IScrollableViewWrapper {
 	public View getView() {
 		return mView;
 	}
-	/**是否可以手指向上滑动**/
-	public boolean canScrollDown(){
-//		View mTarget = mView;
-		//懒得写sdk < 14的
-//		if (android.os.Build.VERSION.SDK_INT < 14) {
-//			if (mTarget instanceof AbsListView) {
-//				final AbsListView absListView = (AbsListView) mTarget;
-//				return absListView.getChildCount() > 0
-//						&& (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0).getTop() < absListView
-//								.getPaddingTop());
-//			} else {
-//				return ViewCompat.canScrollVertically(mTarget, -1) || mTarget.getScrollY() > 0;
-//			}
-//		} else {
-		return mView.canScrollVertically(1);
-			//return ViewCompat.canScrollVertically(mTarget, 1);
-//		}
-	}
 	
 	/**是否可向上翻页，注意ScrollUp是手指向下滑动***/
 	@Override

@@ -117,13 +117,11 @@ public class DataStateContainer extends ViewGroup implements OnWrapperScrollList
 		return false;
 	}
 
-	/** 刷新完毕 **/
+	/** 刷新完毕，建议在调用本方法之后处理empty **/
 	public boolean onRefreshEnd(boolean success) {
 		if (mState == STATE_REFRESH_ING) {
 			log("onRefreshEnd success->" + success);
-			if (success) {
-				clearEmptyInternal();
-			}
+			clearEmptyInternal();
 			mRefreshView.onRefreshEnd(success);
 			postDelayed(mRefreshDelayToIdleRunable, REFRESH_END_DELAY_DURATION);
 			setStateInternal(STATE_REFRESH_END);
@@ -136,14 +134,10 @@ public class DataStateContainer extends ViewGroup implements OnWrapperScrollList
 	public boolean onLoadEnd(boolean success) {
 		if (mState == STATE_LOAD_ING) {
 			log("onLoadEnd success->" + success);
-			if (success) {
-				//实际上在empty的时候不可能是加载状态
-				//如果确实是这样，一定是个sb写的逻辑
-				clearEmptyInternal();
-			}
+			//实际上在empty的时候不可能是加载状态
+			//如果确实是这样，一定是个sb写的逻辑
+			clearEmptyInternal();
 			final boolean hasMoreDataToLoad = mCallBack.hasMoreDataToLoad();
-			// public void onLoadIdle(boolean hasMoreDataToLoad, boolean
-			// clickToLoad, boolean retry);
 			if (success) {
 				// View loadView = mLoadView.getView();
 				// loadView.offsetTopAndBottom(getHeight() - loadView.getTop());
@@ -153,23 +147,7 @@ public class DataStateContainer extends ViewGroup implements OnWrapperScrollList
 				mLoadView.onLoadIdle(hasMoreDataToLoad, clickToLoad, false);
 			} else {
 				mLoadView.onLoadIdle(hasMoreDataToLoad, true, true);
-				// if(mCallBack.autoLoadWhenScrollToLastItem()){
-				// if(mCallBack.hasMoreDataToLoad()){
-				// mLoadView.onClickToLoad(true);
-				// }else{
-				// mLoadView.onLoadIdle(false);
-				// }
-				// }else{
-				//
-				// }
-				// if(mCallBack.hasMoreDataToLoad()){
-				// //retry
-				// mLoadView.onClickToLoad(true);
-				// }else{
-				// mLoadView.onLoadIdle(false);
-				// }
 			}
-
 			invalidate();
 			setStateInternal(STATE_IDLE);
 			return true;
@@ -200,6 +178,7 @@ public class DataStateContainer extends ViewGroup implements OnWrapperScrollList
 //			log("setStateInternal->" + mState);
 			if (mState == STATE_REFRESH_ING) {
 				mRefreshView.onRefreshIng();
+				mEmptyView.onRefreshIng();
 				mCallBack.onRefresh();
 			} else if (mState == STATE_REFRESH_END) {
 
